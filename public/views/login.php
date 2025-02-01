@@ -17,10 +17,18 @@
             </h2>
         </div>
         <div class="login-container">
-            <form class="login" action="">
+            <form class="login" action="login" method="POST">
+                <div class="message">
+                    <?php if (isset($messages)) {
+                        foreach ($messages as $message) {
+                            echo $message;
+                        }
+                    }
+                    ?>
+                </div>
                 <input name="email" type="text" placeholder="email">
                 <input name="password" type="password" placeholder="password">
-                <button type="submit">LOGIN</button>
+                <button type="submit">login</button>
             </form>
         </div>
     </div>
