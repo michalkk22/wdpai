@@ -34,9 +34,17 @@
         </nav>
         <main>
             <div class="create">
-                <form class="create-form" action="">
+                <form class="create-form" action="createPost" method="POST">
+                    <div class="message">
+                        <?php if (isset($messages)) {
+                            foreach ($messages as $message) {
+                                echo $message;
+                            }
+                        }
+                        ?>
+                    </div>
                     <h4>Topic</h4>
-                    <textarea class="topic-textarea" name="" id="" maxlength="120"
+                    <textarea class="topic-textarea" name="topic" id="topic" maxlength="120"
                         placeholder="Enter your topic here..."></textarea>
                     <h4>Category</h4>
                     <div class="category-select">
@@ -49,7 +57,8 @@
                     </div>
                     <h4>Text</h4>
                     <div class="create-textarea-container">
-                        <textarea class="post-textarea" name="" id="" placeholder="Enter text here..."></textarea>
+                        <textarea class="post-textarea" name="content" id="content"
+                            placeholder="Enter text here..."></textarea>
                         <div>
                             <button type="" class="reverse-color">cancel</button>
                             <button type="submit" class="reverse-color">submit</button>

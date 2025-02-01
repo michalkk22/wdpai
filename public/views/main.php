@@ -13,7 +13,10 @@
         <nav class="desktop">
             <img src="public/img/logo_small.svg" alt="">
             <h1>startalk</h1>
-            <button>logout</button>
+            <div class="column">
+                <button>logout</button>
+                <button>create</button>
+            </div>
         </nav>
         <nav class="mobile">
             <button>logout</button>
