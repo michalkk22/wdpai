@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>startalk</title>
+</head>
+
+<body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const textareas = document.querySelectorAll("textarea");
+
+            textareas.forEach((textarea) => {
+                textarea.addEventListener("input", function () {
+                    this.style.height = "auto"; // Reset height
+                    this.style.height = this.scrollHeight + "px"; // Set to content height
+                });
+            });
+        });
+    </script>
+    <div class="base-container">
+        <nav class="desktop">
+            <img src="../img/logo_small.svg" alt="">
+            <h1>startalk</h1>
+            <button>logout</button>
+        </nav>
+        <nav class="mobile">
+            <button>back</button>
+            <img src="../img/logo_small.svg" alt="">
+            <button class="placeholder"></button>
+        </nav>
+        <main>
+            <div class="post">
+                <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
+                <div class="category-and-date">
+                    <div class="category">
+                        Category
+                    </div>
+                    <div class="date">
+                        12:00 01.01.2025
+                    </div>
+                </div>
+                <div class="post-fullcontent">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi venenatis dapibus massa, sed porta
+                    libero aliquet quis. Donec at lobortis nisi.
+
+                    Nullam a felis placerat, commodo leo vel, feugiat enim. Fusce et bibendum ligula. Fusce quis nisi
+                    purus. Aenean ornare cursus bibendum. Morbi congue urna eu augue iaculis, ac eleifend massa maximus.
+                    Maecenas faucibus ipsum finibus, pellentesque nisl at, finibus ante. Orci varius natoque penatibus
+                    et magnis dis parturient montes, nascetur ridiculus mus.
+
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi venenatis dapibus massa, sed porta
+                    libero aliquet quis. Donec at lobortis nisi.
+
+                    Nullam a felis placerat, commodo leo vel, feugiat enim. Fusce et bibendum ligula. Fusce quis nisi
+                    purus. Aenean ornare cursus bibendum. Morbi congue urna eu augue iaculis, ac eleifend massa maximus.
+                    Maecenas faucibus ipsum finibus, pellentesque nisl at, finibus ante. Orci varius natoque penatibus
+                    et magnis dis parturient montes, nascetur ridiculus mus.
+                </div>
+                <div class="right">
+                    <button type="" class="reverse-color">edit</button>
+                    <button type="" class="reverse-color">delete</button>
+                </div>
+            </div>
+            <div class="comment-form-container">
+                <form action="">
+                    <textarea class="post-textarea" name="" id="" placeholder="Write your answer here..."></textarea>
+                    <div>
+                        <button type="submit" class="reverse-color">submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="comments-container">
+                <div class="comment">
+                    <h3>VeryCoolNickname</h3>
+                    <div class="date">
+                        12:00 01.01.2025
+                    </div>
+                    <div class="comment-content">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi venenatis dapibus massa, sed
+                        porta libero aliquet quis. Donec at lobortis nisi.
+                    </div>
+                </div>
+                <div class="comment">
+                    <h3>VeryCoolNickname</h3>
+                    <div class="date">
+                        12:00 01.01.2025
+                    </div>
+                    <div class="comment-content">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi venenatis dapibus massa, sed
+                        porta libero aliquet quis. Donec at lobortis nisi.
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
