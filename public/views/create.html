@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/style.css">
+    <title>startalk</title>
+</head>
+
+<body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const textareas = document.querySelectorAll("textarea");
+
+            textareas.forEach((textarea) => {
+                textarea.addEventListener("input", function () {
+                    this.style.height = "auto"; // Reset height
+                    this.style.height = this.scrollHeight + "px"; // Set to content height
+                });
+            });
+        });
+    </script>
+    <div class="base-container">
+        <nav>
+            <img src="../img/logo_small.svg" alt="">
+            <h1>startalk</h1>
+            <button>logout</button>
+        </nav>
+        <main>
+            <div class="create">
+                <form class="create-form" action="">
+                    <h4>Topic</h4>
+                    <textarea class="topic-textarea" name="" id="" maxlength="120"
+                        placeholder="Enter your topic here..."></textarea>
+                    <h4>Category</h4>
+                    <div class="category-select">
+                        <select id="category-select">
+                            <option value="">Categories</option>
+                            <option value="tech">Technology</option>
+                            <option value="science">Science</option>
+                            <option value="business">Business</option>
+                        </select>
+                    </div>
+                    <h4>Text</h4>
+                    <div class="create-textarea-container">
+                        <textarea class="post-textarea" name="" id="" placeholder="Enter text here..."></textarea>
+                        <div>
+                            <button type="" class="reverse-color">cancel</button>
+                            <button type="submit" class="reverse-color">submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
