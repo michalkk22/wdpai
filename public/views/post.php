@@ -12,13 +12,13 @@
     <!-- <script type="text/javascript" src="./public/js/textarea_rows_adjuster.js"></script> -->
     <div class="base-container">
         <nav class="desktop">
-            <img src="/public/img/logo_small.svg" alt="">
-            <h1>startalk</h1>
-            <button>logout</button>
+            <img src="/public/img/logo_small.svg" alt="" onclick="window.location.href='/main'">
+            <h1 onclick="window.location.href='/main'">startalk</h1>
+            <button onclick="window.location.href='/logout'">logout</button>
         </nav>
         <nav class="mobile">
-            <button>back</button>
-            <img src="/public/img/logo_small.svg" alt="">
+            <button onclick="window.location.href='/main'">back</button>
+            <img src="/public/img/logo_small.svg" alt="" onclick="window.location.href='/main'">
             <button class="placeholder"></button>
         </nav>
         <main>
@@ -38,10 +38,16 @@
                 <div class="post-fullcontent">
                     <?= $post->getContent(); ?>
                 </div>
-                <div class="right">
-                    <button type="" class="reverse-color">edit</button>
-                    <button type="" class="reverse-color">delete</button>
-                </div>
+
+                <?php if ($_SESSION['user_id'] == $post->getOwnerId() || $_SESSION['is_admin']): ?>
+                    <div class="right">
+                        <button type="" class="reverse-color">edit</button>
+                        <form class="delete-post-form" action="/deletePost" method="POST">
+                            <input type="hidden" name="post_id" value="<?= $post->getId(); ?>">
+                            <button type="submit" class="reverse-color">Delete</button>
+                        </form>
+                    </div>
+                <?php endif; ?>
             </div>
             <div class="comment-form-container">
                 <form class="comment-form" action="/createComment" method="POST">
@@ -65,7 +71,7 @@
                         <div class="comment-content">
                             <?= $comment->getText(); ?>
                         </div>
-                        <?php if ($_SESSION['user_id'] == $comment->getAuthorId()): ?>
+                        <?php if ($_SESSION['user_id'] == $comment->getAuthorId() || $_SESSION['is_admin']): ?>
                             <form class="delete-comment-form" action="/deleteComment" method="POST">
                                 <input type="hidden" name="comment_id" value="<?= $comment->getId(); ?>">
                                 <input type="hidden" name="post_id" value="<?= $post->getId(); ?>">

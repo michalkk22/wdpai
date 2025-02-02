@@ -49,6 +49,18 @@ class PostController extends AppController
         return $this->render('create', ['categories' => $this->categoryRepository->findAll()]);
     }
 
+    public function deletePost()
+    {
+        if ($this->isPost()) {
+            $this->postRepository->deleteById($_POST['post_id']);
+
+            return $this->main();
+        }
+
+        $messages[] = 'Bad request';
+        return $this->main();
+    }
+
     public function search()
     {
         $contentType = isset($_SERVER['CONTENT_TYPE']) ? trim($_SERVER['CONTENT_TYPE']) : '';

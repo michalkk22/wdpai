@@ -35,6 +35,12 @@ class CommentRepository extends Repository
         $stmt->execute([$id]);
     }
 
+    public function deleteByPostId($postId)
+    {
+        $stmt = $this->database->connect()->prepare("DELETE FROM comments WHERE post_id = ?");
+        $stmt->execute([$postId]);
+    }
+
     private function fromAssoc($assoc)
     {
         $author = $this->userRepository->findById($assoc['author_id']);

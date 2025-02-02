@@ -13,17 +13,17 @@
 <body>
     <div class="base-container">
         <nav class="desktop">
-            <img src="public/img/logo_small.svg" alt="">
-            <h1>startalk</h1>
+            <img src="public/img/logo_small.svg" alt="" onclick="window.location.href='/main'">
+            <h1 onclick="window.location.href='/main'">startalk</h1>
             <div class="column">
-                <button>logout</button>
-                <button>create</button>
+                <button onclick="window.location.href='/logout'">logout</button>
+                <button onclick="window.location.href='/createPost'">Create</button>
             </div>
         </nav>
         <nav class="mobile">
-            <button>logout</button>
+            <button onclick="window.location.href='/logout'">logout</button>
             <img src="public/img/logo_small.svg" alt="">
-            <button>post</button>
+            <button onclick="window.location.href='/createPost'">post</button>
         </nav>
         <header>
             <div class="search-bar">

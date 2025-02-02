@@ -6,10 +6,12 @@ require_once __DIR__ . '/../models/Post.php';
 class PostRepository extends Repository
 {
     private $categoryRepository;
+    private $commentRepository;
     public function __construct()
     {
         parent::__construct();
         $this->categoryRepository = new CategoryRepository();
+        $this->commentRepository = new CommentRepository();
     }
 
     public function findById($id)
@@ -33,6 +35,14 @@ class PostRepository extends Repository
         $stmt->execute([$post->getOwnerId(), $category->getId(), $post->getTopic(), $post->getContent()]);
 
         return $this->database->connect()->lastInsertId();
+    }
+
+    public function deleteById($id)
+    {
+        $this->commentRepository->deleteByPostId($id);
+
+        $stmt = $this->database->connect()->prepare("DELETE FROM posts WHERE id = ?");
+        $stmt->execute([$id]);
     }
 
     public function findAll()

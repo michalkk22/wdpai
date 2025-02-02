@@ -216,6 +216,7 @@ main {
     overflow-y: auto;
     padding-bottom: 12px;
     margin-bottom: 12px;
+    border-radius: 3px;
 }
 
 .post-list-element {
@@ -288,10 +289,10 @@ textarea {
     word-wrap: break-word;
 }
 
-.create-form .topic-textarea {
+.topic-textarea-container {
     background: #D9D9D9;
+    border-radius: 3px;
     padding: 10px;
-    max-width: calc(100% - 20 px);
 }
 
 .create-textarea-container {
@@ -321,6 +322,53 @@ button.reverse-color {
 }
 
 .create-textarea-container>div {
+    text-align: right;
+}
+
+
+.placeholder {
+    visibility: hidden;
+}
+
+.post {
+    background: #D9D9D9;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+.post-fullcontent {
+    margin-bottom: 5px;
+}
+
+div.right {
+    text-align: right;
+}
+
+.post button {
+    width: 25%;
+}
+
+.comment-form-container {
+    background: #D9D9D9;
+    border-radius: 3px;
+    padding: 10px;
+    text-align: right;
+    margin-bottom: 12px;
+}
+
+.comment {
+    background: #D9D9D9;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+.comment-content {
+    font-size: 14px;
+}
+
+.delete-comment-form {
     text-align: right;
 }
 
@@ -381,46 +429,4 @@ button.reverse-color {
     .create-textarea-container button {
         width: 25%;
     }
-}
-
-.placeholder {
-    visibility: hidden;
-}
-
-.post {
-    background: #D9D9D9;
-    border-radius: 3px;
-    padding: 10px;
-    margin-bottom: 12px;
-}
-
-.post-fullcontent {
-    margin-bottom: 5px;
-}
-
-div.right {
-    text-align: right;
-}
-
-.post button {
-    width: 25%;
-}
-
-.comment-form-container {
-    background: #D9D9D9;
-    border-radius: 3px;
-    padding: 10px;
-    text-align: right;
-    margin-bottom: 12px;
-}
-
-.comment {
-    background: #D9D9D9;
-    border-radius: 3px;
-    padding: 10px;
-    margin-bottom: 12px;
-}
-
-.delete-comment-form {
-    text-align: right;
 }

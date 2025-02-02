@@ -41,6 +41,11 @@ class AuthController extends AppController
 
     public function logout()
     {
+        unset($_SESSION['email']);
+        unset($_SESSION['user_id']);
+        unset($_SESSION['is_admin']);
 
+        $url = "http://" . $_SERVER["HTTP_HOST"];
+        header("Location: {$url}/login");
     }
 }

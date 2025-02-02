@@ -12,14 +12,14 @@
     <script type="text/javascript" src="./public/js/textarea_rows_adjuster.js"></script>
     <div class="base-container">
         <nav class="desktop">
-            <img src="public/img/logo_small.svg" alt="">
-            <h1>startalk</h1>
-            <button>logout</button>
+            <img src="public/img/logo_small.svg" alt="" onclick="window.location.href='/main'">
+            <h1 onclick="window.location.href='/main'">startalk</h1>
+            <button onclick="window.location.href='/logout'">logout</button>
         </nav>
         <nav class="mobile">
-            <button>back</button>
-            <img src="public/img/logo_small.svg" alt="">
-            <button>create</button>
+            <button onclick="window.location.href='/main'">back</button>
+            <img src="public/img/logo_small.svg" alt="" onclick="window.location.href='/main'">
+            <button class="placeholder">create</button>
         </nav>
         <main>
             <div class="create">
@@ -33,8 +33,10 @@
                         ?>
                     </div>
                     <h4>Topic</h4>
-                    <textarea class="topic-textarea" name="topic" id="topic" maxlength="120"
-                        placeholder="Enter your topic here..."></textarea>
+                    <div class="topic-textarea-container">
+                        <textarea class="topic-textarea" name="topic" id="topic" maxlength="120"
+                            placeholder="Enter your topic here..."></textarea>
+                    </div>
                     <h4>Category</h4>
                     <div class="category-select">
                         <select id="category-select" name="category">
@@ -50,7 +52,6 @@
                         <textarea class="post-textarea" name="content" id="content"
                             placeholder="Enter text here..."></textarea>
                         <div>
-                            <button type="" class="reverse-color">cancel</button>
                             <button type="submit" class="reverse-color">submit</button>
                         </div>
                     </div>
