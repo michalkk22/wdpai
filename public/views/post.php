@@ -41,7 +41,6 @@
 
                 <?php if ($_SESSION['user_id'] == $post->getOwnerId() || $_SESSION['is_admin']): ?>
                     <div class="right">
-                        <button type="" class="reverse-color">edit</button>
                         <form class="delete-post-form" action="/deletePost" method="POST">
                             <input type="hidden" name="post_id" value="<?= $post->getId(); ?>">
                             <button type="submit" class="reverse-color">Delete</button>
