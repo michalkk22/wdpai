@@ -36,3 +36,18 @@ Diagram relacji:
 
 ![4](db_diagram.png)
 
+### Instrukcja uruchomienia
+
+W folderze z repozytorium należy wywołać komendy:
+```
+docker-compose up --build
+docker cp db.sql postgres_db:/tmp/db.sql
+docker exec -it postgres_db bash
+pg_restore -U myuser -d mydatabase /tmp/db.sql
+```
+
+Jest to:
+1. budowa i uruchomienie kontenera docker
+2. skopiowanie do woluminu backupu bazy danych
+3. uruchomienie konsoli kontenera
+4. przywrócenie bazy danych
