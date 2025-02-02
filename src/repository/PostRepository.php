@@ -30,7 +30,9 @@ class PostRepository extends Repository
         if (!$category) {
             throw new Exception('No such category', 1);
         }
-        $stmt->execute([$post->getOwnerId(), $category->getId(), $post->getTopic(), $post->getContent()]); // TODO ownerid tu czy w controllerze?
+        $stmt->execute([$post->getOwnerId(), $category->getId(), $post->getTopic(), $post->getContent()]);
+
+        return $this->database->connect()->lastInsertId();
     }
 
     public function findAll()

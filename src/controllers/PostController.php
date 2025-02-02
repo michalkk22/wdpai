@@ -29,10 +29,9 @@ class PostController extends AppController
     public function createPost()
     {
         if ($this->isPost()) {
-            //TODO owner_id tutaj czy w repo?
             $post = new Post(
                 null,
-                1, //$_POST['owner_id'],
+                $_SESSION['user_id'],
                 $_POST['topic'],
                 $_POST['category'],
                 $_POST['content'],
@@ -42,9 +41,10 @@ class PostController extends AppController
             if (!$this->validatePost($post)) {
                 return $this->render('create', ['messages' => $this->messages]);
             }
-            $this->postRepository->create($post);
+            $postId = $this->postRepository->create($post);
 
-            return $this->main(); //TODO widok posta
+            $url = "http://" . $_SERVER["HTTP_HOST"];
+            header("Location: {$url}/post/{$postId}");
         }
         return $this->render('create', ['categories' => $this->categoryRepository->findAll()]);
     }
@@ -113,6 +113,40 @@ class PostController extends AppController
         return $this->main();
     }
 
+    public function createComment()
+    {
+        $url = "http://" . $_SERVER["HTTP_HOST"];
+
+        if ($this->isPost()) {
+            $comment = new Comment(
+                null,
+                $_SESSION['user_id'],
+                null,
+                $_POST['post_id'],
+                $_POST['text'],
+                null
+            );
+
+            if ($this->validateComment($comment)) {
+                $this->commentRepository->create($comment);
+            }
+
+            $post = $this->postRepository->findById($_POST['post_id']);
+
+            return $this->render(
+                'post',
+                [
+                    'post' => $post,
+                    'comments' => $this->commentRepository->findByPostId($_POST['post_id'])
+                ]
+            );
+        }
+        // header("Location: {$url}/main");
+
+        $messages[] = 'Bad request';
+        return $this->main();
+    }
+
     private function validatePost(Post $post): bool
     {
         if ($post->getTopic() === null) {
@@ -122,6 +156,15 @@ class PostController extends AppController
 
         if ($post->getContent() === null) {
             $messages[] = 'Invalid content';
+            return false;
+        }
+        return true;
+    }
+
+    private function validateComment(Comment $post): bool
+    {
+        if ($post->getText() === null) {
+            $messages[] = 'Invalid text';
             return false;
         }
         return true;

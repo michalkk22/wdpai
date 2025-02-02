@@ -31,6 +31,10 @@ class AuthController extends AppController
             return $this->render('login', ['messages' => ['Wrong password!']]);
         }
 
+        $_SESSION['email'] = $email;
+        $_SESSION['user_id'] = $user->getId();
+        $_SESSION['is_admin'] = $user->isAdmin();
+
         $url = "http://" . $_SERVER["HTTP_HOST"];
         header("Location: {$url}/main");
     }

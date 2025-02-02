@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <script type="text/javascript" src="./public/js/textarea_rows_adjuster.js"></script>
+    <!-- <script type="text/javascript" src="./public/js/textarea_rows_adjuster.js"></script> -->
     <div class="base-container">
         <nav class="desktop">
             <img src="/public/img/logo_small.svg" alt="">
@@ -23,7 +23,7 @@
         </nav>
         <main>
             <div class="post">
-                <!-- TODO display nick -->
+                <!-- TODO display email -->
                 <h3>
                     <?= $post->getTopic(); ?>
                 </h3>
@@ -44,8 +44,10 @@
                 </div>
             </div>
             <div class="comment-form-container">
-                <form action="">
-                    <textarea class="post-textarea" name="" id="" placeholder="Write your answer here..."></textarea>
+                <form class="comment-form" action="/createComment" method="POST">
+                    <input type="hidden" name="post_id" value="<?= $post->getId(); ?>">
+                    <textarea class="post-textarea" name="text" id="text"
+                        placeholder="Write your answer here..."></textarea>
                     <div>
                         <button type="submit" class="reverse-color">submit</button>
                     </div>
@@ -65,7 +67,7 @@
                         </div>
                     </div>
                 <?php endforeach; ?>
-                <div class="comment">
+                <!-- <div class="comment">
                     <h3>VeryCoolNickname</h3>
                     <div class="date">
                         12:00 01.01.2025
@@ -74,7 +76,7 @@
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi venenatis dapibus massa, sed
                         porta libero aliquet quis. Donec at lobortis nisi.
                     </div>
-                </div>
+                </div> -->
             </div>
         </main>
     </div>

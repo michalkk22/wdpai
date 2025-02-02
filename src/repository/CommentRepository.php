@@ -13,7 +13,7 @@ class CommentRepository extends Repository
     }
     public function findByPostId($post_id)
     {
-        $stmt = $this->database->connect()->prepare("SELECT * FROM comments WHERE post_id = ?");
+        $stmt = $this->database->connect()->prepare("SELECT * FROM comments WHERE post_id = ? ORDER BY datetime DESC");
         $stmt->execute([$post_id]);
         $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $result = [];

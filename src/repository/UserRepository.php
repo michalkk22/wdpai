@@ -55,7 +55,8 @@ class UserRepository extends Repository
         return new User(
             $assoc['id'],
             $assoc['email'],
-            $assoc['password']
+            $assoc['password'],
+            $assoc['is_admin']
         );
     }
 }
