@@ -16,5 +16,6 @@ Routing::post('search', 'PostController');
 Routing::post('categorySearch', 'PostController');
 Routing::get('post', 'PostController');
 Routing::post('createComment', 'PostController');
+Routing::post('deleteComment', 'PostController');
 
 Routing::run($path);

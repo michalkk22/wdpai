@@ -115,8 +115,6 @@ class PostController extends AppController
 
     public function createComment()
     {
-        $url = "http://" . $_SERVER["HTTP_HOST"];
-
         if ($this->isPost()) {
             $comment = new Comment(
                 null,
@@ -141,7 +139,26 @@ class PostController extends AppController
                 ]
             );
         }
-        // header("Location: {$url}/main");
+
+        $messages[] = 'Bad request';
+        return $this->main();
+    }
+
+    public function deleteComment()
+    {
+        if ($this->isPost()) {
+            $this->commentRepository->deleteById($_POST['comment_id']);
+
+            $post = $this->postRepository->findById($_POST['post_id']);
+
+            return $this->render(
+                'post',
+                [
+                    'post' => $post,
+                    'comments' => $this->commentRepository->findByPostId($_POST['post_id'])
+                ]
+            );
+        }
 
         $messages[] = 'Bad request';
         return $this->main();

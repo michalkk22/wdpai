@@ -65,6 +65,13 @@
                         <div class="comment-content">
                             <?= $comment->getText(); ?>
                         </div>
+                        <?php if ($_SESSION['user_id'] == $comment->getAuthorId()): ?>
+                            <form class="delete-comment-form" action="/deleteComment" method="POST">
+                                <input type="hidden" name="comment_id" value="<?= $comment->getId(); ?>">
+                                <input type="hidden" name="post_id" value="<?= $post->getId(); ?>">
+                                <button type="submit" class="reverse-color">Delete</button>
+                            </form>
+                        <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
                 <!-- <div class="comment">
