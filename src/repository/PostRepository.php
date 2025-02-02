@@ -11,18 +11,7 @@ class PostRepository extends Repository
         parent::__construct();
         $this->categoryRepository = new CategoryRepository();
     }
-    private function fromAssoc($assoc): Post
-    {
-        $category = $this->categoryRepository->findById($assoc['category_id']);
-        return new Post(
-            $assoc['id'],
-            $assoc['owner_id'],
-            $assoc['topic'],
-            $category->getName(),
-            $assoc['content'],
-            $assoc['datetime']
-        );
-    }
+
     public function findById($id)
     {
         $stmt = $this->database->connect()->prepare("SELECT * FROM posts WHERE id = ?");
@@ -56,15 +45,61 @@ class PostRepository extends Repository
         return $result;
     }
 
-    public function findByCategory($category_id)
+    public function findByCategoryId(string $category_id)
     {
         $stmt = $this->database->connect()->prepare("SELECT * FROM posts WHERE category_id = ?");
         $stmt->execute([$category_id]);
         $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
         $result = [];
         foreach ($posts as $post) {
             $result[] = $this->fromAssoc($post);
         }
         return $result;
+    }
+
+    public function findByCategory(string $category)
+    {
+        $stmt = $this->database->connect()->prepare(
+            "SELECT posts.* FROM posts
+                    LEFT JOIN categories ON posts.category_id = categories.id
+                    WHERE categories.name = ?"
+        );
+        $stmt->execute([$category]);
+        $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $result = [];
+        foreach ($posts as $post) {
+            $result[] = $this->fromAssoc($post);
+        }
+        return $result;
+    }
+
+    public function search(string $searchString)
+    {
+        $searchString = '%' . strtolower($searchString) . '%';
+
+        $stmt = $this->database->connect()->prepare('SELECT * FROM posts WHERE LOWER(topic) LIKE ? OR lower(content) LIKE ?');
+        $stmt->execute([$searchString, $searchString]);
+        $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $result = [];
+        foreach ($posts as $post) {
+            $result[] = $this->fromAssoc($post);
+        }
+        return $result;
+    }
+
+    private function fromAssoc($assoc): Post
+    {
+        $category = $this->categoryRepository->findById($assoc['category_id']);
+        return new Post(
+            $assoc['id'],
+            $assoc['owner_id'],
+            $assoc['topic'],
+            $category->getName(),
+            $assoc['content'],
+            $assoc['datetime']
+        );
     }
 }

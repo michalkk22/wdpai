@@ -44,4 +44,16 @@ class Post
     {
         return $this->datetime;
     }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'owner_id' => $this->owner_id,
+            'topic' => $this->topic,
+            'category' => $this->category,
+            'content' => $this->content,
+            'datetime' => $this->datetime,
+        ];
+    }
 }

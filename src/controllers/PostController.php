@@ -46,6 +46,52 @@ class PostController extends AppController
         return $this->render('create', ['categories' => $this->categoryRepository->findAll()]);
     }
 
+    public function search()
+    {
+        $contentType = isset($_SERVER['CONTENT_TYPE']) ? trim($_SERVER['CONTENT_TYPE']) : '';
+
+        if ($contentType === 'application/json') {
+            $content = json_decode(
+                trim(file_get_contents('php://input')),
+                true
+            );
+
+            header('Content-type: application/json');
+            http_response_code(200);
+
+            $posts = $this->postRepository->search($content['search']);
+
+            $postsData = array_map(function ($post) {
+                return $post->toArray();
+            }, $posts);
+
+            echo json_encode($postsData);
+        }
+    }
+
+    public function categorySearch()
+    {
+        $contentType = isset($_SERVER['CONTENT_TYPE']) ? trim($_SERVER['CONTENT_TYPE']) : '';
+
+        if ($contentType === 'application/json') {
+            $content = json_decode(
+                trim(file_get_contents('php://input')),
+                true
+            );
+
+            header('Content-type: application/json');
+            http_response_code(200);
+
+            $posts = $this->postRepository->findByCategoryId($content['categoryId']);
+
+            $postsData = array_map(function ($post) {
+                return $post->toArray();
+            }, $posts);
+
+            echo json_encode($postsData);
+        }
+    }
+
     private function validatePost(Post $post): bool
     {
         if ($post->getTopic() === null) {
@@ -59,4 +105,5 @@ class PostController extends AppController
         }
         return true;
     }
+
 }

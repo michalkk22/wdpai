@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="public/styles/style.css">
+    <script type="text/javascript" src="./public/js/search.js" defer></script>
     <title>startalk</title>
 </head>
 
@@ -25,10 +26,8 @@
         </nav>
         <header>
             <div class="search-bar">
-                <form action="">
-                    <input type="text" placeholder="Search">
-                    <img src="public/img/search_icon.svg" alt="">
-                </form>
+                <input type="text" placeholder="Search">
+                <img src="public/img/search_icon.svg" alt="">
             </div>
             <div class="category-select">
                 <select id="category-select">
@@ -43,7 +42,7 @@
         </header>
         <main>
             <?php foreach ($posts as $post): ?>
-                <div class="post-list-element">
+                <div class="post-list-element" data-post-id="<?= $post->getId(); ?>">
                     <h3>
                         <?= $post->getTopic(); ?>
                     </h3>
@@ -93,3 +92,22 @@
 </body>
 
 </html>
+
+<template id="post-template">
+    <div class="post-list-element">
+        <h3>
+            topic
+        </h3>
+        <div class="category-and-date">
+            <div class="category">
+                category
+            </div>
+            <div class="date">
+                date
+            </div>
+        </div>
+        <div class="post-content">
+            content
+        </div>
+    </div>
+</template>
