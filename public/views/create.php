@@ -9,18 +9,7 @@
 </head>
 
 <body>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const textareas = document.querySelectorAll("textarea");
-
-            textareas.forEach((textarea) => {
-                textarea.addEventListener("input", function () {
-                    this.style.height = "auto"; // Reset height
-                    this.style.height = this.scrollHeight + "px"; // Set to content height
-                });
-            });
-        });
-    </script>
+    <script type="text/javascript" src="./public/js/textarea_rows_adjuster.js"></script>
     <div class="base-container">
         <nav class="desktop">
             <img src="public/img/logo_small.svg" alt="">
@@ -48,11 +37,12 @@
                         placeholder="Enter your topic here..."></textarea>
                     <h4>Category</h4>
                     <div class="category-select">
-                        <select id="category-select">
-                            <option value="">Categories</option>
-                            <option value="tech">Technology</option>
-                            <option value="science">Science</option>
-                            <option value="business">Business</option>
+                        <select id="category-select" name="category">
+                            <?php foreach ($categories as $category): ?>
+                                <option value="<?= $category->getName(); ?>">
+                                    <?= ucfirst($category->getName()); ?>
+                                </option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <h4>Text</h4>

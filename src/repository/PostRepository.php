@@ -46,7 +46,7 @@ class PostRepository extends Repository
 
     public function findAll()
     {
-        $stmt = $this->database->connect()->prepare("SELECT * FROM posts");
+        $stmt = $this->database->connect()->prepare("SELECT * FROM posts ORDER BY datetime DESC");
         $stmt->execute();
         $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $result = [];

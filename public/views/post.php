@@ -9,18 +9,7 @@
 </head>
 
 <body>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const textareas = document.querySelectorAll("textarea");
-
-            textareas.forEach((textarea) => {
-                textarea.addEventListener("input", function () {
-                    this.style.height = "auto"; // Reset height
-                    this.style.height = this.scrollHeight + "px"; // Set to content height
-                });
-            });
-        });
-    </script>
+    <script type="text/javascript" src="./public/js/textarea_rows_adjuster.js"></script>
     <div class="base-container">
         <nav class="desktop">
             <img src="public/img/logo_small.svg" alt="">

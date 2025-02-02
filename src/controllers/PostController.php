@@ -20,7 +20,7 @@ class PostController extends AppController
     {
         $posts = $this->postRepository->findAll();
         $categories = $this->categoryRepository->findAll();
-        $this->render('main', ['posts' => $posts, 'categories' => $categories]);
+        $this->render('main', ['posts' => $posts, 'categories' => $categories, 'messages' => $this->messages]);
     }
 
     public function createPost()
@@ -31,7 +31,7 @@ class PostController extends AppController
                 null,
                 1, //$_POST['owner_id'],
                 $_POST['topic'],
-                1,//$_POST['category_id'],
+                $_POST['category'],
                 $_POST['content'],
                 null
             );
@@ -41,7 +41,7 @@ class PostController extends AppController
             }
             $this->postRepository->create($post);
 
-            return $this->render('main', ['messages' => $this->messages]); //TODO widok posta
+            return $this->main(); //TODO widok posta
         }
         return $this->render('create', ['categories' => $this->categoryRepository->findAll()]);
     }

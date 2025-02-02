@@ -35,7 +35,7 @@
                     <option value="">Categories</option>
                     <?php foreach ($categories as $category): ?>
                         <option value="<?= $category->getId(); ?>">
-                            <?= $category->getName(); ?>
+                            <?= ucfirst($category->getName()); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
