@@ -2,30 +2,41 @@
 
 require_once 'AppController.php';
 require_once __DIR__ . '/../models/User.php';
+require_once __DIR__ . '/../repository/UserRepository.php';
 
 class AuthController extends AppController
 {
     public function login()
     {
-        $mockUser = new User('asdd', 'qwee', 'nicky');
+        $userRepository = new UserRepository();
 
         if (!$this->isPost()) {
-            return $this->login();
+            return $this->render('login');
         }
 
         $email = $_POST["email"];
         $password = $_POST["password"];
 
-        if ($mockUser->getEmail() != $email) {
-            return $this->render('login', ['messages' => ['Wrong email']]);
+        $user = $userRepository->findByEmail($email);
+
+        if (!$user) {
+            return $this->render('login', ['messages' => ['User not found!']]);
         }
 
-        if ($mockUser->getPassword() != $password) {
-            return $this->render('login', ['messages' => ['Wrong password']]);
+        if ($user->getEmail() !== $email) {
+            return $this->render('login', ['messages' => ['User with this email not exist!']]);
         }
 
-        // return $this->render('main');
+        if ($user->getPassword() !== $password) {
+            return $this->render('login', ['messages' => ['Wrong password!']]);
+        }
+
         $url = "http://" . $_SERVER["HTTP_HOST"];
         header("Location: {$url}/main");
+    }
+
+    public function logout()
+    {
+
     }
 }
