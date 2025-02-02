@@ -5,21 +5,17 @@ require_once __DIR__ . '/../models/Category.php';
 
 class CategoryRepository extends Repository
 {
-    private function fromAssoc($assoc)
-    {
-        return new Category($assoc['id'], $assoc['name']);
-    }
 
     public function findAll()
     {
         $stmt = $this->database->connect()->prepare("SELECT * FROM categories");
         $stmt->execute();
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $categories = [];
-        foreach ($results as $category) {
-            $categories[] = $this->fromAssoc($category);
+        $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = [];
+        foreach ($categories as $category) {
+            $result[] = $this->fromAssoc($category);
         }
-        return $categories;
+        return $result;
     }
 
     public function findById($id)
@@ -42,5 +38,9 @@ class CategoryRepository extends Repository
             return false;
         }
         return $this->fromAssoc($category);
+    }
+    private function fromAssoc($assoc)
+    {
+        return new Category($assoc['id'], $assoc['name']);
     }
 }

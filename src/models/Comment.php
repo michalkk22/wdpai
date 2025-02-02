@@ -2,38 +2,43 @@
 
 class Comment
 {
-    private $id;
-    private $author_id;
+    private ?int $id;
+    private ?int $author_id;
+    private ?string $author;
     private $post_id;
     private $text;
-    private $datetime;
+    private ?string $datetime;
 
-    public function __construct($id, $author_id, $post_id, $text, $datetime)
+    public function __construct(?int $id, ?int $author_id, ?string $author, int $post_id, string $text, ?string $datetime)
     {
         $this->id = $id;
         $this->author_id = $author_id;
+        $this->author = $author;
         $this->post_id = $post_id;
         $this->text = $text;
         $this->datetime = $datetime;
     }
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
-    public function getAuthorId(): int
+    public function getAuthorId()
     {
         return $this->author_id;
-
     }
-    public function getPostId(): int
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+    public function getPostId()
     {
         return $this->post_id;
     }
-    public function getText(): string
+    public function getText()
     {
         return $this->text;
     }
-    public function getDatetime(): string
+    public function getDatetime()
     {
         return $this->datetime;
     }

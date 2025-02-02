@@ -45,7 +45,7 @@ class Post
         return $this->datetime;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return [
             'id' => $this->id,

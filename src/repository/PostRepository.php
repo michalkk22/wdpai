@@ -47,7 +47,7 @@ class PostRepository extends Repository
 
     public function findByCategoryId(string $category_id)
     {
-        $stmt = $this->database->connect()->prepare("SELECT * FROM posts WHERE category_id = ?");
+        $stmt = $this->database->connect()->prepare("SELECT * FROM posts WHERE category_id = ? ORDER BY datetime DESC");
         $stmt->execute([$category_id]);
         $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -63,7 +63,8 @@ class PostRepository extends Repository
         $stmt = $this->database->connect()->prepare(
             "SELECT posts.* FROM posts
                     LEFT JOIN categories ON posts.category_id = categories.id
-                    WHERE categories.name = ?"
+                    WHERE categories.name = ?
+                    ORDER BY datetime DESC"
         );
         $stmt->execute([$category]);
         $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -79,7 +80,7 @@ class PostRepository extends Repository
     {
         $searchString = '%' . strtolower($searchString) . '%';
 
-        $stmt = $this->database->connect()->prepare('SELECT * FROM posts WHERE LOWER(topic) LIKE ? OR lower(content) LIKE ?');
+        $stmt = $this->database->connect()->prepare('SELECT * FROM posts WHERE LOWER(topic) LIKE ? OR lower(content) LIKE ? ORDER BY datetime DESC');
         $stmt->execute([$searchString, $searchString]);
         $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

@@ -19,11 +19,20 @@ class UserRepository extends Repository
             return null;
         }
 
-        return new User(
-            $user['id'],
-            $user['email'],
-            $user['password']
-        );
+        return $this->fromAssoc($user);
+    }
+
+    public function findById(int $id): ?User
+    {
+        $stmt = $this->database->connect()->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt->execute([$id]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user == false) {
+            return null;
+        }
+
+        return $this->fromAssoc($user);
     }
 
     public function create($email, $password)
@@ -39,5 +48,14 @@ class UserRepository extends Repository
         $stmt->execute([$email]);
         $storedHash = $stmt->fetchColumn();
         return password_verify($password, $storedHash);
+    }
+
+    private function fromAssoc($assoc)
+    {
+        return new User(
+            $assoc['id'],
+            $assoc['email'],
+            $assoc['password']
+        );
     }
 }

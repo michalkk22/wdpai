@@ -18,8 +18,15 @@ class Routing
 
     public static function run($url)
     {
-        $action = explode("/", $url)[0];
+        $arguments = explode("/", $url);
+        $action = $arguments[0];
         $action = $action ?: 'index';
+        unset($arguments[0]);
+
+        if (preg_match('#^post/(\d+)$#', $url, $matches)) {
+            $action = 'post';
+            $arguments = [$matches[1]];
+        }
 
         if (!array_key_exists($action, self::$routes)) {
             die("Wrong url!");
@@ -28,6 +35,11 @@ class Routing
         $controller = self::$routes[$action];
         $object = new $controller();
 
-        $object->$action();
+        if (empty($arguments)) {
+            $object->$action();
+        } else {
+            $object->$action($arguments);
+        }
     }
+
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="public/styles/style.css">
+    <link rel="stylesheet" href="/public/styles/style.css">
     <title>startalk</title>
 </head>
 
@@ -12,42 +12,31 @@
     <script type="text/javascript" src="./public/js/textarea_rows_adjuster.js"></script>
     <div class="base-container">
         <nav class="desktop">
-            <img src="public/img/logo_small.svg" alt="">
+            <img src="/public/img/logo_small.svg" alt="">
             <h1>startalk</h1>
             <button>logout</button>
         </nav>
         <nav class="mobile">
             <button>back</button>
-            <img src="public/img/logo_small.svg" alt="">
+            <img src="/public/img/logo_small.svg" alt="">
             <button class="placeholder"></button>
         </nav>
         <main>
             <div class="post">
-                <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
+                <!-- TODO display nick -->
+                <h3>
+                    <?= $post->getTopic(); ?>
+                </h3>
                 <div class="category-and-date">
                     <div class="category">
-                        Category
+                        <?= $post->getCategory(); ?>
                     </div>
                     <div class="date">
-                        12:00 01.01.2025
+                        <?= $post->getDatetime(); ?>
                     </div>
                 </div>
                 <div class="post-fullcontent">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi venenatis dapibus massa, sed porta
-                    libero aliquet quis. Donec at lobortis nisi.
-
-                    Nullam a felis placerat, commodo leo vel, feugiat enim. Fusce et bibendum ligula. Fusce quis nisi
-                    purus. Aenean ornare cursus bibendum. Morbi congue urna eu augue iaculis, ac eleifend massa maximus.
-                    Maecenas faucibus ipsum finibus, pellentesque nisl at, finibus ante. Orci varius natoque penatibus
-                    et magnis dis parturient montes, nascetur ridiculus mus.
-
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi venenatis dapibus massa, sed porta
-                    libero aliquet quis. Donec at lobortis nisi.
-
-                    Nullam a felis placerat, commodo leo vel, feugiat enim. Fusce et bibendum ligula. Fusce quis nisi
-                    purus. Aenean ornare cursus bibendum. Morbi congue urna eu augue iaculis, ac eleifend massa maximus.
-                    Maecenas faucibus ipsum finibus, pellentesque nisl at, finibus ante. Orci varius natoque penatibus
-                    et magnis dis parturient montes, nascetur ridiculus mus.
+                    <?= $post->getContent(); ?>
                 </div>
                 <div class="right">
                     <button type="" class="reverse-color">edit</button>
@@ -63,16 +52,19 @@
                 </form>
             </div>
             <div class="comments-container">
-                <div class="comment">
-                    <h3>VeryCoolNickname</h3>
-                    <div class="date">
-                        12:00 01.01.2025
+                <?php foreach ($comments as $comment): ?>
+                    <div class="comment" data-comment-id="<?= $comment->getId(); ?>">
+                        <h3>
+                            <?= $comment->getAuthor(); ?>
+                        </h3>
+                        <div class="date">
+                            <?= $comment->getDatetime(); ?>
+                        </div>
+                        <div class="comment-content">
+                            <?= $comment->getText(); ?>
+                        </div>
                     </div>
-                    <div class="comment-content">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi venenatis dapibus massa, sed
-                        porta libero aliquet quis. Donec at lobortis nisi.
-                    </div>
-                </div>
+                <?php endforeach; ?>
                 <div class="comment">
                     <h3>VeryCoolNickname</h3>
                     <div class="date">

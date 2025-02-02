@@ -11,5 +11,6 @@ Routing::post('login', 'AuthController');
 Routing::post('createPost', 'PostController');
 Routing::post('search', 'PostController');
 Routing::post('categorySearch', 'PostController');
+Routing::get('post', 'PostController');
 
 Routing::run($path);

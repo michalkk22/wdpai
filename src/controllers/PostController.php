@@ -2,18 +2,21 @@
 require_once 'AppController.php';
 require_once __DIR__ . '/../repository/PostRepository.php';
 require_once __DIR__ . '/../repository/CategoryRepository.php';
+require_once __DIR__ . '/../repository/CommentRepository.php';
 
 class PostController extends AppController
 {
     private $messages = [];
     private $postRepository;
     private $categoryRepository;
+    private $commentRepository;
 
     public function __construct()
     {
         parent::__construct();
         $this->postRepository = new PostRepository();
         $this->categoryRepository = new CategoryRepository();
+        $this->commentRepository = new CommentRepository();
     }
 
     public function main()
@@ -90,6 +93,24 @@ class PostController extends AppController
 
             echo json_encode($postsData);
         }
+    }
+
+    public function post($arg)
+    {
+        $postId = $arg[0];
+        if ($this->isGet()) {
+            $post = $this->postRepository->findById($postId);
+
+            return $this->render(
+                'post',
+                [
+                    'post' => $post,
+                    'comments' => $this->commentRepository->findByPostId($postId)
+                ]
+            );
+        }
+        $messages[] = 'Bad request';
+        return $this->main();
     }
 
     private function validatePost(Post $post): bool
