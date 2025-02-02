@@ -51,3 +51,16 @@ Jest to:
 2. skopiowanie do woluminu backupu bazy danych
 3. uruchomienie konsoli kontenera
 4. przywrócenie bazy danych
+
+Po wykonaniu tych kroków:
+ - strona działa na
+   ```
+   http://localhost:8080/
+   ```
+ - pgadmin (do zarządzania bazą danych) działa na
+   ```
+   http://localhost:5050/
+   admin@example.com
+   adminpassword
+   ```
+
