@@ -1,27 +1,37 @@
 <?php
 require_once 'AppController.php';
 require_once __DIR__ . '/../repository/PostRepository.php';
+require_once __DIR__ . '/../repository/CategoryRepository.php';
 
 class PostController extends AppController
 {
     private $messages = [];
     private $postRepository;
+    private $categoryRepository;
 
     public function __construct()
     {
         parent::__construct();
         $this->postRepository = new PostRepository();
+        $this->categoryRepository = new CategoryRepository();
+    }
+
+    public function main()
+    {
+        $posts = $this->postRepository->findAll();
+        $categories = $this->categoryRepository->findAll();
+        $this->render('main', ['posts' => $posts, 'categories' => $categories]);
     }
 
     public function createPost()
     {
         if ($this->isPost()) {
-
+            //TODO owner_id tutaj czy w repo?
             $post = new Post(
                 null,
-                1, //$_POST['owner_id'], //TODO owner_id tutaj czy w repo?
+                1, //$_POST['owner_id'],
                 $_POST['topic'],
-                $_POST['category_id'],
+                1,//$_POST['category_id'],
                 $_POST['content'],
                 null
             );
@@ -29,10 +39,11 @@ class PostController extends AppController
             if (!$this->validatePost($post)) {
                 return $this->render('create', ['messages' => $this->messages]);
             }
+            $this->postRepository->create($post);
 
             return $this->render('main', ['messages' => $this->messages]); //TODO widok posta
         }
-        $this->render('create');
+        return $this->render('create', ['categories' => $this->categoryRepository->findAll()]);
     }
 
     private function validatePost(Post $post): bool

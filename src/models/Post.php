@@ -5,16 +5,16 @@ class Post
     private ?int $id;
     private $owner_id;
     private $topic;
-    private $category_id;
+    private $category;
     private $content;
-    private $datetime;
+    private ?string $datetime;
 
-    public function __construct(?int $id, int $owner_id, string $topic, int $category_id, string $content, string $datetime)
+    public function __construct(?int $id, int $owner_id, string $topic, string $category, string $content, ?string $datetime)
     {
         $this->id = $id;
         $this->owner_id = $owner_id;
         $this->topic = $topic;
-        $this->category_id = $category_id;
+        $this->category = $category;
         $this->content = $content;
         $this->datetime = $datetime;
     }
@@ -31,9 +31,9 @@ class Post
     {
         return $this->topic;
     }
-    public function getCategoryId()
+    public function getCategory()
     {
-        return $this->category_id;
+        return $this->category;
     }
     public function getContent()
     {

@@ -5,13 +5,20 @@ require_once __DIR__ . '/../models/Post.php';
 
 class PostRepository extends Repository
 {
+    private $categoryRepository;
+    public function __construct()
+    {
+        parent::__construct();
+        $this->categoryRepository = new CategoryRepository();
+    }
     private function fromAssoc($assoc): Post
     {
+        $category = $this->categoryRepository->findById($assoc['category_id']);
         return new Post(
             $assoc['id'],
             $assoc['owner_id'],
             $assoc['topic'],
-            $assoc['category_id'],
+            $category->getName(),
             $assoc['content'],
             $assoc['datetime']
         );
@@ -30,30 +37,34 @@ class PostRepository extends Repository
     public function create(Post $post)
     {
         $stmt = $this->database->connect()->prepare("INSERT INTO posts (owner_id, category_id, topic, content) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$post->getOwnerId(), $post->getCategoryId(), $post->getTopic(), $post->getContent()]); // TODO ownerid tu czy w controllerze?
+        $category = $this->categoryRepository->findByName($post->getCategory());
+        if (!$category) {
+            throw new Exception('No such category', 1);
+        }
+        $stmt->execute([$post->getOwnerId(), $category->getId(), $post->getTopic(), $post->getContent()]); // TODO ownerid tu czy w controllerze?
     }
 
-    public function getAll()
+    public function findAll()
     {
         $stmt = $this->database->connect()->prepare("SELECT * FROM posts");
         $stmt->execute();
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $posts = [];
-        foreach ($results as $post) {
-            $posts[] = $this->fromAssoc($post);
+        $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = [];
+        foreach ($posts as $post) {
+            $result[] = $this->fromAssoc($post);
         }
-        return $posts;
+        return $result;
     }
 
     public function findByCategory($category_id)
     {
         $stmt = $this->database->connect()->prepare("SELECT * FROM posts WHERE category_id = ?");
         $stmt->execute([$category_id]);
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $posts = [];
-        foreach ($results as $post) {
-            $posts[] = $this->fromAssoc($post);
+        $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = [];
+        foreach ($posts as $post) {
+            $result[] = $this->fromAssoc($post);
         }
-        return $posts;
+        return $result;
     }
 }

@@ -33,14 +33,34 @@
             <div class="category-select">
                 <select id="category-select">
                     <option value="">Categories</option>
-                    <option value="tech">Technology</option>
-                    <option value="science">Science</option>
-                    <option value="business">Business</option>
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?= $category->getId(); ?>">
+                            <?= $category->getName(); ?>
+                        </option>
+                    <?php endforeach; ?>
                 </select>
             </div>
         </header>
         <main>
-            <div class="post-list-element">
+            <?php foreach ($posts as $post): ?>
+                <div class="post-list-element">
+                    <h3>
+                        <?= $post->getTopic(); ?>
+                    </h3>
+                    <div class="category-and-date">
+                        <div class="category">
+                            <?= $post->getCategory(); ?>
+                        </div>
+                        <div class="date">
+                            <?= $post->getDatetime(); ?>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <?= $post->getContent(); ?>
+                    </div>
+                </div>
+            <?php endforeach ?>
+            <!-- <div class="post-list-element">
                 <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
                 <div class="category-and-date">
                     <div class="category">
@@ -67,63 +87,7 @@
                     Maecenas faucibus ipsum finibus, pellentesque nisl at, finibus ante. Orci varius natoque penatibus
                     et magnis dis parturient montes, nascetur ridiculus mus.
                 </div>
-            </div>
-            <div class="post-list-element">
-                <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
-                <div class="category-and-date">
-                    <div class="category">
-                        Category
-                    </div>
-                    <div class="date">
-                        12:00 01.01.2025
-                    </div>
-                </div>
-                <div class="post-content">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi venenatis dapibus massa, sed porta
-                    libero aliquet quis. Donec at lobortis nisi.
-
-                    Nullam a felis placerat, commodo leo vel, feugiat enim. Fusce et bibendum ligula. Fusce quis nisi
-                    purus. Aenean ornare cursus bibendum. Morbi congue urna eu augue iaculis, ac eleifend massa maximus.
-                    Maecenas faucibus ipsum finibus, pellentesque nisl at, finibus ante. Orci varius natoque penatibus
-                    et magnis dis parturient montes, nascetur ridiculus mus.
-
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi venenatis dapibus massa, sed porta
-                    libero aliquet quis. Donec at lobortis nisi.
-
-                    Nullam a felis placerat, commodo leo vel, feugiat enim. Fusce et bibendum ligula. Fusce quis nisi
-                    purus. Aenean ornare cursus bibendum. Morbi congue urna eu augue iaculis, ac eleifend massa maximus.
-                    Maecenas faucibus ipsum finibus, pellentesque nisl at, finibus ante. Orci varius natoque penatibus
-                    et magnis dis parturient montes, nascetur ridiculus mus.
-                </div>
-            </div>
-            <div class="post-list-element">
-                <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
-                <div class="category-and-date">
-                    <div class="category">
-                        Category
-                    </div>
-                    <div class="date">
-                        12:00 01.01.2025
-                    </div>
-                </div>
-                <div class="post-content">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi venenatis dapibus massa, sed porta
-                    libero aliquet quis. Donec at lobortis nisi.
-
-                    Nullam a felis placerat, commodo leo vel, feugiat enim. Fusce et bibendum ligula. Fusce quis nisi
-                    purus. Aenean ornare cursus bibendum. Morbi congue urna eu augue iaculis, ac eleifend massa maximus.
-                    Maecenas faucibus ipsum finibus, pellentesque nisl at, finibus ante. Orci varius natoque penatibus
-                    et magnis dis parturient montes, nascetur ridiculus mus.
-
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi venenatis dapibus massa, sed porta
-                    libero aliquet quis. Donec at lobortis nisi.
-
-                    Nullam a felis placerat, commodo leo vel, feugiat enim. Fusce et bibendum ligula. Fusce quis nisi
-                    purus. Aenean ornare cursus bibendum. Morbi congue urna eu augue iaculis, ac eleifend massa maximus.
-                    Maecenas faucibus ipsum finibus, pellentesque nisl at, finibus ante. Orci varius natoque penatibus
-                    et magnis dis parturient montes, nascetur ridiculus mus.
-                </div>
-            </div>
+            </div> -->
         </main>
     </div>
 </body>
